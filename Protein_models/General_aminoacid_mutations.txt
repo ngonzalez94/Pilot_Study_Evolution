@@ -1,0 +1,56 @@
+# =====================================================
+# Secondary structure + pLDDT + mutation figures
+# =====================================================
+#
+# HOW TO USE: only change the lines marked "EDIT". This way you can change the amino acid and the position necessary depending on the molecule wanted. 
+#   EDIT 1: folder where the pictures are saved
+#   EDIT 2: model number (#1) and the residue to mutate (chain and number)
+#   EDIT 3: the new amino acid (3-letter code, table below)
+#
+# AMINO ACID CODES (3-letter / 1-letter)
+#   Alanine        ALA / A      Leucine        LEU / L
+#   Arginine       ARG / R      Lysine         LYS / K
+#   Asparagine     ASN / N      Methionine     MET / M
+#   Aspartate      ASP / D      Phenylalanine  PHE / F
+#   Cysteine       CYS / C      Proline        PRO / P
+#   Glutamine      GLN / Q      Serine         SER / S
+#   Glutamate      GLU / E      Threonine      THR / T
+#   Glycine        GLY / G      Tryptophan     TRP / W
+#   Histidine      HIS / H      Tyrosine       TYR / Y
+#   Isoleucine     ILE / I      Valine         VAL / V
+#
+# Example: Gly71Asp means residue 71 changes from Gly to Asp,
+#          so use "#1/E:71" in EDIT 2 and "ASP" in EDIT 3.
+# =====================================================
+
+# ---------- EDIT 1: output folder ----------
+cd "C:\Users\natal\OneDrive\Documents\Thesis\Chapter 3"
+
+# ---------- EDIT 2: model, chain and residue number ----------
+name target #1
+name mutsite #1/A:98
+
+# ---------- 1. Colour by secondary structure ----------
+cartoon target
+color target & coil gold target c
+color target & strand lightblue target c
+color target & helix darkred target c
+save figure_secondary_structure.png width 3000 height 3000 supersample 3 transparentBackground true
+
+# ---------- 2. Paint the whole molecule by pLDDT ----------
+color bfactor target palette alphafold range 0,100 target c
+save figure_plddt.png width 3000 height 3000 supersample 3 transparentBackground true
+
+# ---------- 3. Restore secondary structure colours, mutate, paint dark green ----------
+color target & coil gold target c
+color target & strand lightblue target c
+color target & helix darkred target c
+
+# EDIT 3: replace TRP with the 3-letter code of the new amino acid
+swapaa mutsite TRP
+
+show mutsite atoms
+style mutsite stick
+color mutsite darkgreen
+select clear
+save figure_mutation.png width 3000 height 3000 supersample 3 transparentBackground true

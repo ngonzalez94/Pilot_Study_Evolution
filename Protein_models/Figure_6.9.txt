@@ -1,0 +1,58 @@
+Figure 6.9
+
+# ---------- 0. Load ----------
+close session
+open 6WU9
+name lfour #1/E
+name lthirtytwo #1/2
+name rrna #1/A
+name site #1/E:71
+name zone #1/A & (#1/E:71 :< 15)
+
+# ---------- 1.50S as context ----------
+hide #1 cartoons
+show #1 atoms
+style #1 sphere
+color #1 lightgray
+transparency #1 70 atoms
+color lfour red
+color lthirtytwo blue
+color zone green
+transparency lfour 0 atoms
+transparency lthirtytwo 0 atoms
+transparency zone 0 atoms
+view
+save panelB_context.png width 3000 height 3000 supersample 3 transparentBackground true
+
+# ---------- 2. Wild type (Gly71) ----------
+hide #1 atoms
+show lfour cartoons
+show lthirtytwo cartoons
+color lfour red target c
+color lthirtytwo blue target c
+transparency #1 0 cartoons
+addh
+surface lfour
+surface zone
+coulombic lfour
+coulombic zone
+color zone green target c
+hide H
+show site atoms
+style site stick
+view site
+save panelC_Gly71.png width 3000 height 3000 supersample 3 transparentBackground true
+
+# ---------- 3. Mutant (Glu71) ----------
+~surface lfour
+~surface zone
+swapaa site GLU
+addh
+surface lfour
+surface zone
+coulombic lfour
+coulombic zone
+hide H
+show site atoms
+style site stick
+save panelD_Glu71.png width 3000 height 3000 supersample 3 transparentBackground true
